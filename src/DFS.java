@@ -55,7 +55,7 @@ public class DFS {
             }
         }
         try {
-            FileWriter myWriter = new FileWriter("BfsResult.txt");
+            FileWriter myWriter = new FileWriter("DFSResult.txt");
             System.out.println("initial state : ");
             while (!states.empty()) {
                 State tempState = states.pop();
