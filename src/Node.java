@@ -21,8 +21,8 @@ public class Node {
         return newNode;
     }
 
-    public void changeColorTo(Color color){
-        this.color= color;
+    public void changeColorTo(Color color) {
+        this.color = color;
     }
 
     public void reverseNodeColor() {

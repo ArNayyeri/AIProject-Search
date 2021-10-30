@@ -16,7 +16,7 @@ public class Main {
 //        initialGraph.addLinkBetween(initialGraph.getNode(3), initialGraph.getNode(4));
 
         //-----------------------------------------------> test2 :
-        Graph initialGraph= new Graph(7);
+        Graph initialGraph = new Graph(7);
         initialGraph.addNode(new Node(0, Color.Red));
         initialGraph.addNode(new Node(1, Color.Black));
         initialGraph.addNode(new Node(2, Color.Green));
@@ -71,8 +71,8 @@ public class Main {
 //        initialGraph.addLinkBetween(initialGraph.getNode(8), initialGraph.getNode(14));
 
 
-        State initialState= new State(initialGraph, -1, null);
+        State initialState = new State(initialGraph, -1, null);
 
-        BFS.search(initialState);
+        DFS.search(initialState);
     }
 }
