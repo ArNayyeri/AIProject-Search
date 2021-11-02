@@ -27,13 +27,14 @@ class GraphVisualization:
 
         outline_color_map = []
         for node in G:
-            if selected_node_id == str(node)[0:len(node)-1]:
+            if selected_node_id == str(node)[0:len(node) - 1]:
                 outline_color_map.append('yellow')
             else:
                 outline_color_map.append('black')
 
         nx.draw_networkx_labels(G, pos, labels, font_size=12, font_color="whitesmoke")
-        nx.draw_networkx(G, pos, edgecolors=outline_color_map, node_color=node_color_map, node_size=500, with_labels=False)
+        nx.draw_networkx(G, pos, edgecolors=outline_color_map, node_color=node_color_map, node_size=500,
+                         with_labels=False)
         if index == 0:
             plt.title('initial state')
         else:
@@ -41,7 +42,9 @@ class GraphVisualization:
         plt.show()
 
 
-f = open("BfsResult.txt", "r")
+print('Enter File Name: ')
+name = input()
+f = open(name + '.txt', "r")
 text = f.read()
 states = text.split("\n")
 states.pop(states.index(""))
@@ -49,13 +52,13 @@ for stateIndex in states:
     labels = {}
     G = GraphVisualization()
     nodeNeighbors = stateIndex.split(",")
-    selectedNodeId = nodeNeighbors[0][0:len(nodeNeighbors[0])-1]
+    selectedNodeId = nodeNeighbors[0][0:len(nodeNeighbors[0]) - 1]
     nodeNeighbors.pop(0)
     for nodeNeighborIndex in nodeNeighbors:
         nodes = nodeNeighborIndex.split(" ")
         if nodes[0]:
             tempStr = nodes[0]
-            labels[nodes[0]] = tempStr[0:len(tempStr)-1]
+            labels[nodes[0]] = tempStr[0:len(tempStr) - 1]
         for nodeIndex in range(1, len(nodes) - 1):
             G.addEdge(nodes[0], nodes[nodeIndex])
     G.visualize(states.index(stateIndex), labels, str(selectedNodeId))

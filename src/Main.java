@@ -72,7 +72,8 @@ public class Main {
 
 
         State initialState = new State(initialGraph, -1, null);
-
+        BFS.search(initialState);
         DFS.search(initialState);
+        IDS.search(initialState);
     }
 }
