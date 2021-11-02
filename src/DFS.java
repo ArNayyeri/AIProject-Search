@@ -13,12 +13,11 @@ public class DFS {
         Hashtable<String, Boolean> inFrontier = new Hashtable<>();
         Hashtable<String, Boolean> explored = new Hashtable<>();
         inFrontier.put(initialState.hash(), true);
-        for (int i = 1; i < Integer.MAX_VALUE; i++)
-            recursive(initialState, inFrontier, explored, i);
+        recursive(initialState, inFrontier, explored);
     }
 
     private static void recursive(State state, Hashtable<String, Boolean> inFrontier
-            , Hashtable<String, Boolean> explored, int depth) {
+            , Hashtable<String, Boolean> explored) {
         inFrontier.remove(state.hash());
         explored.put(state.hash(), true);
         ArrayList<State> children = state.successor();
@@ -30,8 +29,7 @@ public class DFS {
                     return;
                 }
                 inFrontier.put(children.get(i).hash(), true);
-                if (depth - 1 != 0)
-                    recursive(children.get(i), inFrontier, explored, depth - 1);
+                recursive(children.get(i), inFrontier, explored);
             }
         }
     }

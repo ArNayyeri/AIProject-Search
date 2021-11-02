@@ -13,11 +13,16 @@ public class IDS {
         Hashtable<String, Boolean> inFrontier = new Hashtable<>();
         Hashtable<String, Boolean> explored = new Hashtable<>();
         inFrontier.put(initialState.hash(), true);
-        recursive(initialState, inFrontier, explored);
+        for (int i = 1; !recursive(initialState, inFrontier, explored, i); i++) {
+            inFrontier = new Hashtable<>();
+            explored = new Hashtable<>();
+            inFrontier.put(initialState.hash(), true);
+        }
+
     }
 
-    private static void recursive(State state, Hashtable<String, Boolean> inFrontier
-            , Hashtable<String, Boolean> explored) {
+    private static boolean recursive(State state, Hashtable<String, Boolean> inFrontier
+            , Hashtable<String, Boolean> explored, int depth) {
         inFrontier.remove(state.hash());
         explored.put(state.hash(), true);
         ArrayList<State> children = state.successor();
@@ -26,12 +31,18 @@ public class IDS {
                     && !(explored.containsKey(children.get(i).hash()))) {
                 if (isGoal(children.get(i))) {
                     result(children.get(i));
-                    return;
+                    return true;
                 }
                 inFrontier.put(children.get(i).hash(), true);
-                recursive(children.get(i), inFrontier, explored);
+                if (depth - 1 != 0) {
+                    boolean isResult = recursive(children.get(i), inFrontier, explored, depth - 1);
+                    if (isResult)
+                        return true;
+                }
+
             }
         }
+        return false;
     }
 
     private static boolean isGoal(State state) {
