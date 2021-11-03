@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class State {
+public class State implements Comparable<State> {
 
     private Graph graph;
     private int selectedNodeId;
@@ -99,5 +99,21 @@ public class State {
 
     public int getSelectedNodeId() {
         return selectedNodeId;
+    }
+
+    @Override
+    public int compareTo(State o) {
+        int o1 = 0, o2 = 0;
+        switch (o.graph.getNode(o.selectedNodeId).getColor()) {
+            case Red -> o1 = 1;
+            case Black -> o1 = 2;
+            case Green -> o1 = 3;
+        }
+        switch (this.graph.getNode(this.selectedNodeId).getColor()) {
+            case Red -> o2 = 1;
+            case Black -> o2 = 2;
+            case Green -> o2 = 3;
+        }
+        return o1 < o2 ? 1 : -1;
     }
 }
