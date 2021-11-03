@@ -114,6 +114,6 @@ public class State implements Comparable<State> {
             case Black -> o2 = 2;
             case Green -> o2 = 3;
         }
-        return o1 < o2 ? 1 : -1;
+        return o1 > o2 ? 1 : -1;
     }
 }
