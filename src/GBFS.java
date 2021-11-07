@@ -5,9 +5,9 @@ import java.util.Hashtable;
 import java.util.PriorityQueue;
 import java.util.Stack;
 
-public class UCS {
+public class GBFS {
     public static void search(State initialState) {
-        PriorityQueue<State> frontier = new PriorityQueue<State>(new UCSComparator());
+        PriorityQueue<State> frontier = new PriorityQueue<State>(new GBFSComparator());
         Hashtable<String, Boolean> inFrontier = new Hashtable<>();
         Hashtable<String, Boolean> explored = new Hashtable<>();
         if (isGoal(initialState)) {
@@ -56,7 +56,7 @@ public class UCS {
             }
         }
         try {
-            FileWriter myWriter = new FileWriter("UCSResult.txt");
+            FileWriter myWriter = new FileWriter("GBFSResult.txt");
             System.out.println("initial state : ");
             while (!states.empty()) {
                 State tempState = states.pop();
@@ -75,4 +75,5 @@ public class UCS {
             e.printStackTrace();
         }
     }
+
 }
