@@ -6,6 +6,7 @@ public class State {
     private Graph graph;
     private int selectedNodeId;
     private State parentState;
+    private int cost = 0;
 
     public State(Graph graph, int selectedNodeId, State parentState) {
         this.graph = graph.copy();
@@ -120,5 +121,13 @@ public class State {
         for (; s.parentState != null; count++)
             s = s.parentState;
         return count;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 }
