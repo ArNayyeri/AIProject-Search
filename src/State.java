@@ -103,16 +103,14 @@ public class State {
     }
 
     public int h_n() {
-        int count = 0;
+        if (selectedNodeId == -1)
+            return 0;
+        if (graph.getNode(selectedNodeId).getColor() == Color.Green)
+            return 1;
         for (int i = 0; i < graph.getNode(selectedNodeId).getNeighborsIds().size(); i++)
             if (graph.getNode(graph.getNode(selectedNodeId).getNeighborsId(i)).getColor() == Color.Green)
-                count++;
-        if (graph.getNode(selectedNodeId).getColor() == Color.Green)
-            count++;
-        else if (graph.getNode(selectedNodeId).getColor() == Color.Black
-                && graph.getNode(selectedNodeId).getNeighborsIds().size() - count < count)
-            count++;
-        return count;
+                return 1;
+        return 0;
     }
 
     public int g_n() {
@@ -121,6 +119,10 @@ public class State {
         for (; s.parentState != null; count++)
             s = s.parentState;
         return count;
+    }
+
+    public int f_n() {
+        return g_n() + h_n();
     }
 
     public int getCost() {

@@ -76,5 +76,8 @@ public class Main {
         DFS.search(initialState);
         IDS.search(initialState);
         UCS.search(initialState);
+        AStar.search(initialState);
+        GBFS.search(initialState);
+        IDA.search(initialState);
     }
 }
