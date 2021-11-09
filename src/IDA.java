@@ -22,7 +22,9 @@ public class IDA {
         children.addAll(state.successor());
         while (!children.isEmpty()) {
             State child = children.poll();
-            if (!(explored.containsKey(child.hash())) && (child.f_n() <= cutoff)) {
+            if (child.f_n() > cutoff)
+                break;
+            else if (!(explored.containsKey(child.hash()))) {
                 if (isGoal(child)) {
                     result(child);
                     return true;
