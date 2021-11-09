@@ -10,26 +10,20 @@ public class DFS {
             result(initialState);
             return;
         }
-        Hashtable<String, Boolean> inFrontier = new Hashtable<>();
         Hashtable<String, Boolean> explored = new Hashtable<>();
-        inFrontier.put(initialState.hash(), true);
-        recursive(initialState, inFrontier, explored);
+        recursive(initialState, explored);
     }
 
-    private static void recursive(State state, Hashtable<String, Boolean> inFrontier
-            , Hashtable<String, Boolean> explored) {
-        inFrontier.remove(state.hash());
+    private static void recursive(State state, Hashtable<String, Boolean> explored) {
         explored.put(state.hash(), true);
         ArrayList<State> children = state.successor();
         for (int i = 0; i < children.size(); i++) {
-            if (!(inFrontier.containsKey(children.get(i).hash()))
-                    && !(explored.containsKey(children.get(i).hash()))) {
+            if (!(explored.containsKey(children.get(i).hash()))) {
                 if (isGoal(children.get(i))) {
                     result(children.get(i));
                     return;
                 }
-                inFrontier.put(children.get(i).hash(), true);
-                recursive(children.get(i), inFrontier, explored);
+                recursive(children.get(i), explored);
             }
         }
     }
