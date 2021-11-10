@@ -132,4 +132,12 @@ public class State {
     public void setCost(int cost) {
         this.cost = cost;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        State state = (State) o;
+        return state.hash().equals(hash());
+    }
 }

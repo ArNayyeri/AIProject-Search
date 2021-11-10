@@ -79,5 +79,6 @@ public class Main {
         AStar.search(initialState);
         GBFS.search(initialState);
         IDA.search(initialState);
+        BDS.search(initialState);
     }
 }
