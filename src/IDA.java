@@ -34,6 +34,7 @@ public class IDA {
                     return true;
             }
         }
+        explored.remove(state.hash());
         return false;
     }
 

@@ -1,40 +1,39 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.PriorityQueue;
 import java.util.Stack;
 
-public class IDS {
+public class RBFS {
     public static void search(State initialState) {
         if (isGoal(initialState)) {
             result(initialState);
             return;
         }
-        Hashtable<String, Boolean> explored = new Hashtable<>();
-        for (int i = 1; !recursive(initialState, explored, i); i++) {
-            explored = new Hashtable<>();
-        }
+        recursive(initialState, Integer.MAX_VALUE);
     }
 
-    private static boolean recursive(State state, Hashtable<String, Boolean> explored, int depth) {
-        explored.put(state.hash(), true);
+    private static byte recursive(State state, int minValue) {
         ArrayList<State> children = state.successor();
-        for (int i = 0; i < children.size(); i++) {
-            if (!(explored.containsKey(children.get(i).hash()))) {
-                if (isGoal(children.get(i))) {
-                    result(children.get(i));
-                    return true;
+        while (!children.isEmpty()) {
+            children.sort(new AComparator());
+            State child = children.get(0);
+            if (child.f_n() > minValue) {
+                state.setCost(child.f_n());
+                return 0;
+            } else {
+                if (isGoal(child)) {
+                    result(child);
+                    return 1;
                 }
-                if (depth - 1 != 0) {
-                    boolean isResult = recursive(children.get(i), explored, depth - 1);
-                    if (isResult)
-                        return true;
-                }
-
+                byte isResult = recursive(child, Math.min(children.get(1).f_n(), minValue));
+                if (isResult == 1)
+                    return 1;
+                else if (isResult == -1)
+                    children.remove(0);
             }
         }
-        explored.remove(state.hash());
-        return false;
+        return -1;
     }
 
     private static boolean isGoal(State state) {
@@ -58,7 +57,7 @@ public class IDS {
             }
         }
         try {
-            FileWriter myWriter = new FileWriter("IdsResult.txt");
+            FileWriter myWriter = new FileWriter("RBFSResult.txt");
             System.out.println("initial state : ");
             while (!states.empty()) {
                 State tempState = states.pop();

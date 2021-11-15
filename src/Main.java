@@ -80,5 +80,6 @@ public class Main {
         GBFS.search(initialState);
         IDA.search(initialState);
         BDS.search(initialState);
+        RBFS.search(initialState);
     }
 }

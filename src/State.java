@@ -6,7 +6,9 @@ public class State {
     private Graph graph;
     private int selectedNodeId;
     private State parentState;
-    private int cost = 0;
+    private int cost = -1;
+    private int heuristic = -1;
+    private int path = 0;
 
     public State(Graph graph, int selectedNodeId, State parentState) {
         this.graph = graph.copy();
@@ -103,13 +105,23 @@ public class State {
     }
 
     public int h_n() {
-        if (selectedNodeId == -1)
+        if (heuristic != -1)
+            return heuristic;
+        if (selectedNodeId == -1) {
+            heuristic = 0;
             return 0;
-        if (graph.getNode(selectedNodeId).getColor() == Color.Green)
+        }
+        if (graph.getNode(selectedNodeId).getColor() == Color.Green) {
+            heuristic = 1;
             return 1;
+        }
+
         for (int i = 0; i < graph.getNode(selectedNodeId).getNeighborsIds().size(); i++)
-            if (graph.getNode(graph.getNode(selectedNodeId).getNeighborsId(i)).getColor() == Color.Green)
+            if (graph.getNode(graph.getNode(selectedNodeId).getNeighborsId(i)).getColor() == Color.Green) {
+                heuristic = 1;
                 return 1;
+            }
+        heuristic = 0;
         return 0;
     }
 
@@ -122,7 +134,10 @@ public class State {
     }
 
     public int f_n() {
-        return g_n() + h_n();
+        if (cost != -1)
+            return cost;
+        cost = g_n() + h_n();
+        return cost;
     }
 
     public int getCost() {
@@ -131,6 +146,7 @@ public class State {
 
     public void setCost(int cost) {
         this.cost = cost;
+        heuristic = -1;
     }
 
     @Override

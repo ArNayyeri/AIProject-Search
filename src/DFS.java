@@ -26,6 +26,7 @@ public class DFS {
                 recursive(children.get(i), explored);
             }
         }
+        explored.remove(state.hash());
     }
 
     private static boolean isGoal(State state) {
