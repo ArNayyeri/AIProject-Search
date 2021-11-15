@@ -14,19 +14,22 @@ public class DFS {
         recursive(initialState, explored);
     }
 
-    private static void recursive(State state, Hashtable<String, Boolean> explored) {
+    private static boolean recursive(State state, Hashtable<String, Boolean> explored) {
         explored.put(state.hash(), true);
         ArrayList<State> children = state.successor();
         for (int i = 0; i < children.size(); i++) {
             if (!(explored.containsKey(children.get(i).hash()))) {
                 if (isGoal(children.get(i))) {
                     result(children.get(i));
-                    return;
+                    return true;
                 }
-                recursive(children.get(i), explored);
+                boolean isResult = recursive(children.get(i), explored);
+                if (isResult)
+                    return true;
             }
         }
         explored.remove(state.hash());
+        return false;
     }
 
     private static boolean isGoal(State state) {

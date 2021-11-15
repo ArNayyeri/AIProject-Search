@@ -17,14 +17,14 @@ public class IDA {
     }
 
     private static boolean recursive(State state, Hashtable<String, Boolean> explored, int cutoff) {
+        if (state.f_n() > cutoff)
+            return false;
         explored.put(state.hash(), true);
         PriorityQueue<State> children = new PriorityQueue<>(new AComparator());
         children.addAll(state.successor());
         while (!children.isEmpty()) {
             State child = children.poll();
-            if (child.f_n() > cutoff)
-                break;
-            else if (!(explored.containsKey(child.hash()))) {
+            if (!(explored.containsKey(child.hash()))) {
                 if (isGoal(child)) {
                     result(child);
                     return true;
